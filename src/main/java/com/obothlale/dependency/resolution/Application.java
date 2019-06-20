@@ -7,6 +7,25 @@ import com.obothlale.dependency.resolution.service.impl.DependencyServiceImpl;
 public class Application {
 
     public static void main(String[] args) {
+        executeDependencyResolve();
+        executeDependencyResolveStringInput();
+    }
+
+    private static void executeDependencyResolveStringInput() {
+        System.out.println("==== From input string ====");
+        String input = "A B C\n" +
+                "B C E\n" +
+                "C G\n" +
+                "D A F\n" +
+                "E F\n" +
+                "F H";
+
+        DependencyService dependencyService = new DependencyServiceImpl();
+        System.out.println(dependencyService.resolve(input));
+    }
+
+    private static void executeDependencyResolve() {
+        System.out.println("==== From built object ====");
         DependencyGraph dependencyGraph = new DependencyGraph();
         dependencyGraph.addToken("A");
         dependencyGraph.addToken("B");
@@ -26,7 +45,6 @@ public class Application {
         dependencyGraph.addDependence("E", "F");
         dependencyGraph.addDependence("F", "H");
         DependencyService dependencyService = new DependencyServiceImpl();
-
         System.out.println(dependencyService.resolve(dependencyGraph));
     }
 
